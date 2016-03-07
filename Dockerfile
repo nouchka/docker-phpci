@@ -30,7 +30,9 @@ ENV APACHE_RUN_DIR /var/run/apache2
 ENV APACHE_PID_FILE /var/run/apache2/apache2.pid
 RUN usermod -u 1000 www-data
 RUN groupmod -g 1000 www-data
-RUN sed -i 's/\/var\/www\/html/\/var\/www\/phpci\/public/' /etc/apache2/sites-enabled/000-default.conf
+COPY phpci.conf /etc/apache2/sites-available/phpci.conf
+RUN a2ensite phpci
+RUN a2dissite 000-default
 
 ##PHP date.timezone
 RUN echo "date.timezone = UTC" >> /etc/php5/cli/php.ini

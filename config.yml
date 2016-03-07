@@ -1,0 +1,10 @@
+b8:
+    database:
+        servers:
+            read: $MYSQL_SERVER
+            write: $MYSQL_SERVER
+        name: $MYSQL_BDD
+        username: $MYSQL_USER
+        password: $MYSQL_PASSWORD
+phpci:
+    url: '$PHPCI_URL'
