@@ -1,5 +1,6 @@
 #!/bin/bash
 
+/init.sh
 sed -i \
     -e "s|\$MYSQL_SERVER|$MYSQL_SERVER|g" \
     -e "s|\$MYSQL_BDD|$MYSQL_BDD|g" \

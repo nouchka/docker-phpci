@@ -1,0 +1,25 @@
+version: '2'
+services:
+  front_phpci:
+    container_name: "phpci"
+    image: nouchka/phpci
+    ports:
+      - "80:80"
+    environment:
+      - MYSQL_SERVER=mysql.server.lan
+      - MYSQL_BDD=phpci-bdd
+      - MYSQL_USER=mysql-user
+      - MYSQL_PASSWORD=mysql-password
+      - PHPCI_URL=http://phpci.server.lan:80
+    volumes_from:
+      - phpci_data
+  phpci_cron:
+    image: nouchka/phpci
+    entrypoint: /cron.sh
+    volumes_from:
+      - phpci_data
+  phpci_data:
+    image: nouchka/data
+    entrypoint: /bin/true
+    volumes:
+     - /var/www/phpci
