@@ -69,4 +69,5 @@ RUN chown -R www-data: /var/www/
 
 VOLUME ["/var/log"]
 
+EXPOSE 80
 CMD ["/bin/bash", "-e", "/start.sh"]
