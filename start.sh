@@ -11,4 +11,8 @@ sed -i \
 
 chown www-data: /var/www/phpci/PHPCI/config.yml
 
+cd /var/www/phpci/
+composer update
+php console phpci:update
+
 /usr/sbin/apache2 -D FOREGROUND
