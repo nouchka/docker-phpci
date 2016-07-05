@@ -40,24 +40,8 @@ RUN echo "date.timezone = UTC" >> /etc/php5/apache2/php.ini
 
 ##PHPCI
 WORKDIR /var/www/
-##RUN /usr/local/bin/composer create-project block8/phpci phpci --keep-vcs --no-dev && \
-##	cd phpci && \
-##	/usr/local/bin/composer install && \
-##	/usr/local/bin/composer require sebastian/phpcpd 2.0.2
-##COPY config.yml /var/www/phpci/PHPCI/config.yml
-##COPY local_vars.php /var/www/phpci/local_vars.php
 COPY config.yml /var/www/config.yml
 COPY local_vars.php /var/www/local_vars.php
-##RUN mv /var/www/phpci/public/.htaccess.dist /var/www/phpci/public/.htaccess
-##	/usr/local/bin/composer install && \
-##	./console phpci:install
-
-##SSH keys
-##RUN mkdir -p /var/www/.ssh
-##RUN ssh-keyscan subversion.sdsix.lan >> /var/www/.ssh/known_hosts
-##COPY id_rsa /var/www/.ssh/id_rsa
-##RUN chmod 600 /var/www/.ssh/id_rsa
-##RUN chsh -s /bin/bash www-data
 
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
@@ -66,6 +50,8 @@ RUN chmod +x /cron.sh
 COPY init.sh /init.sh
 RUN chmod +x /init.sh
 RUN chown -R www-data: /var/www/
+
+ENV PHPCI_VERSION 1.7.1
 
 VOLUME ["/var/log"]
 

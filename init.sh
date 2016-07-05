@@ -2,7 +2,7 @@
 
 if [ ! -d "/var/www/phpci/public/" ]; then
 	cd /var/www/
-	/usr/local/bin/composer create-project block8/phpci phpci --keep-vcs --no-dev && \
+	/usr/local/bin/composer create-project block8/phpci=$PHPCI_VERSION phpci --keep-vcs --no-dev && \
 		cd phpci && \
 		/usr/local/bin/composer install && \
 		/usr/local/bin/composer require sebastian/phpcpd 2.0.2
