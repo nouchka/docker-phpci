@@ -1,26 +1,50 @@
 version: '2'
+
 services:
   front_phpci:
     container_name: "phpci"
     build: .
     ports:
-      - "80:80"
+      - "8002:80"
+    links:
+      - db:mysql
     environment:
-      - MYSQL_SERVER=mysql.server.lan
+      - MYSQL_SERVER=mysql
       - MYSQL_BDD=phpci-bdd
       - MYSQL_USER=mysql-user
       - MYSQL_PASSWORD=mysql-password
-      - PHPCI_URL=http://phpci.server.lan:80
-      - PHPCI_VERSION=1.7.1
-    volumes_from:
-      - phpci_data
-  phpci_cron:
+      - PHPCI_URL=http://phpci.server.lan:8002
+      - PHPCI_VERSION=1.7.0
+      - ADMIN_MAIL=admin@example.com
+      - ADMIN_NAME=admin
+      - ADMIN_PASS=passw0rd
+    volumes:
+      - data:/var/www/phpci
+      - logs:/var/log
+  cron:
+    container_name: "phpci_cron"
     build: .
     entrypoint: /cron.sh
-    volumes_from:
-      - phpci_data
-  phpci_data:
-    image: nouchka/data
-    entrypoint: /bin/true
+    links:
+      - db:mysql
     volumes:
-     - /var/www/phpci
+      - data:/var/www/phpci
+      - logs:/var/log
+  db:
+    container_name: "phpci_db"
+    image: mariadb:5.5
+    environment:
+      - MYSQL_DATABASE=phpci-bdd
+      - MYSQL_USER=mysql-user
+      - MYSQL_PASSWORD=mysql-password
+      - MYSQL_ROOT_PASSWORD=mysql-root-password
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  data:
+    driver: local
+  logs:
+    driver: local
+  db:
+    driver: local
