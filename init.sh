@@ -16,7 +16,7 @@ if [ ! -d "/var/www/phpci/public/" ]; then
 		cd phpci && \
 		/usr/local/bin/composer install && \
 		/usr/local/bin/composer require sebastian/phpcpd 2.0.2
-	php ./console phpci:install --url=$PHPCI_URL --db-host=$MYSQL_SERVER --db-name=$MYSQL_BDD --db-user=$MYSQL_USER --db-pass=$MYSQL_PASSWORD --admin-name=$ADMIN_NAME --admin-pass=$ADMIN_PASS --admin-mail=$ADMIN_MAIL
+	php ./console phpci:install --queue-disabled --url=$PHPCI_URL --db-host=$MYSQL_SERVER --db-name=$MYSQL_BDD --db-user=$MYSQL_USER --db-pass=$MYSQL_PASSWORD --admin-name=$ADMIN_NAME --admin-pass=$ADMIN_PASS --admin-mail=$ADMIN_MAIL
 	cp /var/www/local_vars.php /var/www/phpci/local_vars.php
 	cp /var/www/phpci/public/.htaccess.dist /var/www/phpci/public/.htaccess
 	chown -R www-data: /var/www/
