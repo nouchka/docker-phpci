@@ -14,12 +14,13 @@ services:
       - MYSQL_USER=mysql-user
       - MYSQL_PASSWORD=mysql-password
       - PHPCI_URL=http://phpci.server.lan:8002
-      - PHPCI_VERSION=1.7.0
+      - PHPCI_VERSION=1.7.1
       - ADMIN_MAIL=admin@example.com
       - ADMIN_NAME=admin
       - ADMIN_PASS=passw0rd
     volumes:
       - data:/var/www/phpci
+      - composer:/root/.composer
       - logs:/var/log
   cron:
     container_name: "phpci_cron"
@@ -43,6 +44,8 @@ services:
 
 volumes:
   data:
+    driver: local
+  composer:
     driver: local
   logs:
     driver: local
